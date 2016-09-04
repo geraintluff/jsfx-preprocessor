@@ -1,0 +1,15 @@
+{
+  "name": "jsfx-preprocessor",
+  "version": "1.0.0",
+  "description": "pre-processor for REAPER's JSFX language",
+  "main": "jsfx-pp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "JSFX",
+    "REAPER"
+  ],
+  "author": "Geraint Luff <luffgd@gmail.com>",
+  "license": "ISC"
+}
