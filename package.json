@@ -1,6 +1,6 @@
 {
   "name": "jsfx-preprocessor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "pre-processor for REAPER's JSFX language",
   "main": "jsfx-pp.js",
   "scripts": {
@@ -11,5 +11,6 @@
     "REAPER"
   ],
   "author": "Geraint Luff <luffgd@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "website": "https://www.npmjs.com/package/jsfx-preprocessor"
 }
