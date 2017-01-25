@@ -114,9 +114,11 @@ module.exports = function (source) {
 };
 
 if (require.main == module) {
-	var inputFile = process.argv[1], outputFile = process.argv[2];
+	var inputFile = process.argv[2], outputFile = process.argv[3];
 	if (!inputFile || !outputFile) {
-		console.error("Usage: " + process.argv[0] + ' [input-file] [output-file]');
+		console.error('Usage: jsfx-preprocessor [input-file] [output-file]');
 		process.exit(1);
 	}
+	var source = require('fs').readFileSync(inputFile, {encoding: 'utf-8'});
+	require('fs').writeFileSync(outputFile, module.exports(source));
 }
