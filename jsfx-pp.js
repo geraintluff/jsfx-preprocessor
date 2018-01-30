@@ -3,7 +3,7 @@
 function functionRefs(source) {
 	var functionSwitcherSets = {};
 	var declarationRegex = /function\s*\{\s*([a-z0-9_\.]+)\s*\}\s*\(\s*([a-z0-9_\.]+\s*(,\s*[a-z0-9_\.]+\s*)*)?\)/g;
-	
+
 	source = source.replace(declarationRegex, function (match, groupName, args) {
 		var argNames = args ? args.split(/,\s*/g) : [];
 		argNames = argNames.map(function (name, index) {
@@ -18,7 +18,7 @@ function functionRefs(source) {
 		};
 		return match;
 	});
-	
+
 	source = source.replace(/\{\s*([a-z0-9_\.]+)\s*\}\s*([a-z0-9_\.]+)/ig, function (match, groupName, funcName) {
 		var group = functionSwitcherSets[groupName];
 		if (!group) throw new Error('No function group defined for {' + groupName + '}' + funcName);
@@ -33,16 +33,15 @@ function functionRefs(source) {
 		var group = functionSwitcherSets[groupName];
 		if (!group) throw new Error('No function group for: ' + funName);
 		var switcherCode = 'function ' + groupName + '(' + ['function_id'].concat(group.argNames).join(', ') + ') (\n';
-		switcherCode += '\tfunction_id ? (\n';
 		group.functions.forEach(function (func, index) {
 			if (index > 0) {
-				switcherCode += '\n\t\t: ';
+				switcherCode += '\n\t: ';
 			} else {
-				switcherCode += '\t\t';
+				switcherCode += '\t';
 			}
 			switcherCode += 'function_id == ' + group.map[func] + ' ? ' + func + '(' + group.argNames.join(', ') + ')';
 		});
-		switcherCode += '\n\t);\n);'
+		switcherCode += ';\n);'
 		return switcherCode;
 	});
 
@@ -51,7 +50,7 @@ function functionRefs(source) {
 		if (!group) throw new Error('No function group defined for {' + groupName + ':' + expr + '}');
 		return groupName + '(' + expr + (untilCloseBrackets ? ', ' + untilCloseBrackets : ')');
 	});
-	
+
 	return source;
 };
 
