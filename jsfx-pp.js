@@ -32,15 +32,30 @@ function functionRefs(source) {
 	source = source.replace(declarationRegex, function (match, groupName, args) {
 		var group = functionSwitcherSets[groupName];
 		if (!group) throw new Error('No function group for: ' + funName);
-		var switcherCode = 'function ' + groupName + '(' + ['function_id'].concat(group.argNames).join(', ') + ') (\n';
+		var switcherCode = 'function ' + groupName + '(' + ['function_id'].concat(group.argNames).join(', ') + ') (';
+
+		var ids = [0], callCodeMap = {'0': '0'};
 		group.functions.forEach(function (func, index) {
-			if (index > 0) {
-				switcherCode += '\n\t: ';
-			} else {
-				switcherCode += '\t';
-			}
-			switcherCode += 'function_id == ' + group.map[func] + ' ? ' + func + '(' + group.argNames.join(', ') + ')';
+			var callCode = func + '(' + group.argNames.join(', ') + ')';
+			var id = group.map[func];
+			ids.push(id);
+			callCodeMap[id] = callCode;
 		});
+		ids.sort();
+
+		function indent(code) {
+			return '\n\t' + code.trim().replace(/\n/g, '\n\t');
+		}
+
+		function handleList(ids, low, high) {
+			if (low >= high) return '0';
+			if (low + 1== high) {
+				return callCodeMap[ids[low]];
+			}
+			var mid = Math.ceil((low + high)/2);
+			return '(function_id < ' + mid + ' ?' + indent(handleList(ids, low, mid)) + indent(' : ' + handleList(ids, mid, high)) + '\n)';
+		}
+		switcherCode += indent(handleList(ids, 0, ids.length));
 		switcherCode += ';\n);'
 		return switcherCode;
 	});
