@@ -2,7 +2,7 @@
 'use strict';
 function functionRefs(source) {
 	var functionSwitcherSets = {};
-	var declarationRegex = /function\s*\{\s*([a-z0-9_\.]+)\s*\}\s*\(\s*([a-z0-9_\.]+\s*(,\s*[a-z0-9_\.]+\s*)*)?\)/g;
+	var declarationRegex = /function\s*\{\s*([a-z0-9_\.]+)\s*\}\s*\(\s*([a-z0-9_\.]+\s*(,\s*[a-z0-9_\.]+\*?\s*)*)?\)/g;
 
 	source = source.replace(declarationRegex, function (match, groupName, args) {
 		var argNames = args ? args.split(/,\s*/g) : [];
@@ -36,7 +36,10 @@ function functionRefs(source) {
 
 		var ids = [0], callCodeMap = {'0': '0'};
 		group.functions.forEach(function (func, index) {
-			var callCode = func + '(' + group.argNames.join(', ') + ')';
+			var args = group.argNames.map(function (varName) {
+				return varName.replace('*', '');
+			});
+			var callCode = func + '(' + args.join(', ') + ')';
 			var id = group.map[func];
 			ids.push(id);
 			callCodeMap[id] = callCode;
