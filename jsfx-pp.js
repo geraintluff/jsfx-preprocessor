@@ -7,10 +7,12 @@ function expandSequences(source) {
 		source = source.replace(regex, function (match, name, start, end, body) {
 			start = parseInt(start);
 			end = parseInt(end);
+			body = body.replace(/^[\s\r\n]+/, '');
 			var result = '';
 			var step = (end > start) ? 1 : -1;
-			for (var i = start; i != end; i += step) {
+			for (var i = start; true; i += step) {
 				result += body.split(name).join(i);
+				if (i == end) break;
 			}
 			return result;
 		});
@@ -132,7 +134,11 @@ function autoEnums(source) {
 		if (forceOnlyCount && group.countingRefs != 1) {
 			throw new Error('Group counted more than once: ' + match);
 		}
-		return group.counter + '/*' + key + ': ' + group.values.join(', ') + '*/';
+		if (group.countingRefs == 1) {
+			return group.counter + '/*' + key + ': ' + group.values.join(', ') + '*/';
+		} else {
+			return group.counter + '/*' + key + '*/';
+		}
 	});
 	for (var key in groups) {
 		var group = groups[key];
