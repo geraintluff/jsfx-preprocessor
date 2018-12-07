@@ -6,6 +6,14 @@ It adds two types of syntax: automatic enums and switchable functions.
 
 ## Usage
 
+As command-line tool (installed with `npm install --global jsfx-preprocessor`):
+
+```
+jsfx-preprocessor input.txt output.jsfx
+```
+
+From Node:
+
 ```javascript
 var pp = require('jsfx-preprocessor'); // function
 
