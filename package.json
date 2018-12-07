@@ -1,6 +1,6 @@
 {
   "name": "jsfx-preprocessor",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "pre-processor for REAPER's JSFX language",
   "main": "jsfx-pp.js",
   "bin": {
