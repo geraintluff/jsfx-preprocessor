@@ -90,3 +90,34 @@ function init_func(function_id, x, y) (
 // Call a function pointer
 init_func(pointer[0], 1, 2);
 ```
+
+## Sequence templates
+
+Unrolling loops produces a lot of almost-duplicated code, so we have a syntax for numeric sequences.
+
+Sequences are opened with `{#var=start,end}` and closed with `{#}`.  `start` and `end` are integers.  The limits are inclusive, and can be reversed to get a backwards-counting sequence.
+
+### Example
+
+Input:
+
+```
+{#FOO=1,10}
+varFOO += FOO;
+{#}
+```
+
+Output:
+
+```
+var1 += 1;
+var2 += 2;
+var3 += 3;
+var4 += 4;
+var5 += 5;
+var6 += 6;
+var7 += 7;
+var8 += 8;
+var9 += 9;
+var10 += 10;
+```
