@@ -21,6 +21,10 @@ var code = fs.readFileSync(inputFile, {encoding: 'utf-8'});
 fs.writeFileSync(outputFile, pp(code));
 ```
 
+Online demo:
+
+There is a [webpage](http://geraintluff.github.io/jsfx-preprocessor) where you can try it out in the browser.
+
 ## Automatic enums
 
 This is designed to help you use structured data within the memory block/array.  A group identifier can be composed of letters, numbers, and `_`, followed by the hash symbol `#`.
