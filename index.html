@@ -70,6 +70,7 @@
 			<p>This is simply a web-page so that it can be used in the browser.
 		</div>
 <textarea id="input">
+
 // Example of auto-enum, being used to manage structures in memory
 pointer = mylist_start;
 while (pointer < mylist_end) (
@@ -77,6 +78,27 @@ while (pointer < mylist_end) (
 	pointer[MYSTRUCT#BAR] = 5;
 	pointer += MYSTRUCT#; // Struct length
 );
+
+/************************/
+
+// Example of fake function-pointers
+fakeFuncPtr = {func_group}foo_function;
+function foo_function(x, y) (
+	x + y;
+);
+
+// Group declaration - placed below all references
+function {func_group}(x, y);
+
+// Call a function pointer
+{func_group:fakeFuncPtr}(1, 2);
+
+/************************/
+
+// Example of sequence template
+{#FOO=1,10}
+varFOO += FOO;
+{#}
 </textarea>
 		<button id="translate-button" style="width:100%;font-size:1.2em;">Translate</button>
 		<textarea id="output"></textarea>
