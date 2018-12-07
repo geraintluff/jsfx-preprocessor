@@ -23,7 +23,7 @@ fs.writeFileSync(outputFile, pp(code));
 
 Online demo:
 
-There is a [webpage](http://geraintluff.github.io/jsfx-preprocessor) where you can try it out in the browser.
+There is a [webpage](https://geraintluff.github.io/jsfx-preprocessor/) where you can try it out in the browser.
 
 ## Automatic enums
 
